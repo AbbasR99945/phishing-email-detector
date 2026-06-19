@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Phishing Email Detector</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <h1>Phishing Email Detector</h1>
+        <p>Check email text for suspicious wording, sender clues, and risky URLs.</p>
+      </div>
+      <button id="sample" class="secondary">Load sample</button>
+    </header>
+    <section class="grid">
+      <div class="panel full">
+        <label for="email-input">Email text</label>
+        <textarea id="email-input" spellcheck="false"></textarea>
+        <div class="actions">
+          <button id="analyze">Analyze email</button>
+          <button id="export" class="secondary">Export report</button>
+          <button id="clear" class="secondary">Clear</button>
+        </div>
+      </div>
+      <div class="panel full">
+        <h2>Risk summary</h2>
+        <div id="score" class="metric-row"></div>
+      </div>
+      <div class="panel">
+        <h2>Findings</h2>
+        <div id="findings" class="list"></div>
+      </div>
+      <div class="panel">
+        <h2>Links</h2>
+        <div id="links" class="list"></div>
+      </div>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
