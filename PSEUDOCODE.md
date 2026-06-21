@@ -8,3 +8,4 @@
 6. Show the findings and let the user export the report.
 
 Small human note: the app explains the score because mystery scores are not useful to anyone.
+
