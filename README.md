@@ -1,45 +1,30 @@
 # Phishing Email Detector
 
-                A client-side email risk checker for portfolio and coursework use. It detects pressure language, credential requests, suspicious links, brand lookalikes, and unclear sender clues.
+A small defensive browser project for practising phishing-awareness checks on fake training emails. It looks for suspicious wording, link mismatches, urgency, and sender clues, then shows the evidence behind the score.
 
-                ## Features
+## Run
 
-                - Email text analysis
-                - Link extraction
-                - Risk scoring
-                - Findings with plain explanations
-                - JSON report export
-                - Sample phishing-style email
+Open `index.html` in a browser.
 
-                ## Run
+## What It Does
 
-                Open `index.html` in a browser.
+- Accepts pasted email text.
+- Flags common training indicators such as urgency, password-reset wording, and suspicious links.
+- Shows matched evidence so the result is reviewable.
+- Includes a sample email for local testing.
 
-                ## Suggested repo name
+## Safety Note
 
-                `phishing-email-detector`
+Use fake or cleaned examples only. This project is for awareness training and does not collect, submit, or store credentials.
 
-## GitHub upload
-
-This folder is ready to be uploaded as its own repository.
-
-```bash
-git init
-git add .
-git commit -m "initial project"
-git branch -M main
-```
-
-Then create a GitHub repository and push it using the commands GitHub gives you.
 ## What I Learned
 
-- A simple browser project still needs tidy structure, because HTML, CSS, and JavaScript can get messy quickly.
-- Keeping the interface focused makes the project easier to test manually.
-- Small sample inputs make the page feel more finished than an empty demo.
+- The explanation matters more than the score for awareness tools.
+- Fake examples need to be realistic enough to teach the pattern without using real private messages.
+- Simple rules are a good starting point before adding heavier classification.
 
 ## Next Improvements
 
-- Add another screenshot after any visual redesign.
-- Keep the JavaScript syntax check passing in GitHub Actions.
-- Improve the sample data if the project grows beyond a small demo.
-
+- Add three built-in examples: safe, suspicious, and obvious training phish.
+- Highlight matched phrases directly in the email text.
+- Add a screenshot after the next UI polish pass.
