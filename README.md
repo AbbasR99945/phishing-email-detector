@@ -42,3 +42,7 @@ Use fake or cleaned examples only. This project is for awareness training and do
 - Add three built-in examples: safe, suspicious, and obvious training phish.
 - Highlight matched phrases directly in the email text.
 - Add a small false-positive notes section.
+
+## Portfolio Notes
+
+I keep a short note on the safe browser-based awareness workflow in [docs/portfolio-notes.md](docs/portfolio-notes.md).
