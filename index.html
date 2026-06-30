@@ -13,17 +13,26 @@
         <h1>Phishing Email Detector</h1>
         <p>Check email text for suspicious wording, sender clues, and risky URLs.</p>
       </div>
-      <button id="sample" class="secondary">Load sample</button>
+      <div class="header-actions">
+        <button id="sample" class="secondary">Load risky sample</button>
+        <button id="clean-sample" class="secondary">Load clean sample</button>
+      </div>
     </header>
+    <section class="status-strip" aria-label="project status">
+      <span>Fake training examples only</span>
+      <span>No credential collection</span>
+      <span>Evidence-based scoring</span>
+    </section>
     <section class="grid">
       <div class="panel full">
         <label for="email-input">Email text</label>
-        <textarea id="email-input" spellcheck="false"></textarea>
+        <textarea id="email-input" spellcheck="false" placeholder="Paste a fake or cleaned email example here."></textarea>
         <div class="actions">
           <button id="analyze">Analyze email</button>
           <button id="export" class="secondary">Export report</button>
           <button id="clear" class="secondary">Clear</button>
         </div>
+        <p id="status" class="status-note" aria-live="polite">Ready for a fake training email.</p>
       </div>
       <div class="panel full">
         <h2>Risk summary</h2>
@@ -36,6 +45,10 @@
       <div class="panel">
         <h2>Links</h2>
         <div id="links" class="list"></div>
+      </div>
+      <div class="panel full">
+        <h2>Triage notes</h2>
+        <div id="guidance" class="guidance-grid"></div>
       </div>
     </section>
   </main>

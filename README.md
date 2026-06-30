@@ -25,7 +25,12 @@ The test checks JavaScript syntax, required project files, README sections, scre
 - Accepts pasted email text.
 - Flags common training indicators such as urgency, password-reset wording, and suspicious links.
 - Shows matched evidence so the result is reviewable.
-- Includes a sample email for local testing.
+- Includes risky and clean sample emails for comparison.
+- Adds triage notes that explain what to check next.
+
+## Completion Status
+
+This is complete as a beginner phishing-awareness project. It has fake training samples, visible evidence, link checks, export, screenshot, and a smoke test.
 
 ## Safety Note
 
@@ -39,9 +44,9 @@ Use fake or cleaned examples only. This project is for awareness training and do
 
 ## Next Improvements
 
-- Add three built-in examples: safe, suspicious, and obvious training phish.
 - Highlight matched phrases directly in the email text.
 - Add a small false-positive notes section.
+- Add a third borderline example for practising review judgement.
 
 ## Portfolio Notes
 

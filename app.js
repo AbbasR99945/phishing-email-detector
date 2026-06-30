@@ -1,11 +1,14 @@
 const emailInput = document.querySelector("#email-input");
 const analyzeButton = document.querySelector("#analyze");
 const sampleButton = document.querySelector("#sample");
+const cleanSampleButton = document.querySelector("#clean-sample");
 const clearButton = document.querySelector("#clear");
 const exportButton = document.querySelector("#export");
 const scoreBox = document.querySelector("#score");
 const findingsBox = document.querySelector("#findings");
 const linksBox = document.querySelector("#links");
+const guidanceBox = document.querySelector("#guidance");
+const statusBox = document.querySelector("#status");
 
 let lastReport = null;
 
@@ -19,6 +22,16 @@ Visit https://paypa1-support.example/login now to restore access.
 
 Regards,
 Account Support`;
+
+const cleanSampleEmail = `From: library@example.edu
+Subject: Study room booking confirmation
+
+Hi Abbas,
+
+Your study room booking is confirmed for Thursday at 14:00. You can manage the booking from your normal student portal.
+
+Thanks,
+Library Desk`;
 
 const phraseRules = [
   ["Urgency language", /\burgent\b|\b24 hours\b|\bimmediately\b|\btoday\b|\bfinal warning\b/i, 14],
@@ -108,6 +121,50 @@ function render(report) {
       </div>
     `).join("")
     : "<p class=\"muted\">No URLs detected.</p>";
+  guidanceBox.innerHTML = buildGuidance(report).map(item => `
+    <div class="guidance-card">
+      <strong>${item.title}</strong>
+      <span>${item.detail}</span>
+    </div>
+  `).join("");
+  statusBox.textContent = `Analysis complete: ${report.level.toLowerCase()} with ${report.findings.length} finding${report.findings.length === 1 ? "" : "s"}.`;
+}
+
+function buildGuidance(report) {
+  const notes = [
+    {
+      title: "Do not submit credentials",
+      detail: "A legitimate check should never ask for a password inside an email reply or random form."
+    },
+    {
+      title: "Check the real channel",
+      detail: "Open the service manually from a bookmark or known address before trusting a link."
+    }
+  ];
+  if (report.score >= 70) {
+    notes.push({ title: "Likely training phish", detail: "The message has enough warning signs to treat it as unsafe in a training exercise." });
+  } else if (report.score >= 40) {
+    notes.push({ title: "Needs review", detail: "Some signals are suspicious, but the message still needs context before calling it phishing." });
+  } else {
+    notes.push({ title: "Low signal", detail: "No major rule hits were found. Keep checking sender context and attachments manually." });
+  }
+  return notes;
+}
+
+function renderEmptyState() {
+  scoreBox.innerHTML = `
+    <div class="metric"><span class="muted">Score</span><strong>0</strong></div>
+    <div class="metric"><span class="muted">Level</span><strong>Ready</strong></div>
+    <div class="metric"><span class="muted">Links</span><strong>0</strong></div>
+    <div class="metric"><span class="muted">Findings</span><strong>0</strong></div>
+  `;
+  findingsBox.innerHTML = "<p class=\"muted\">Load a sample or paste a cleaned email to see findings.</p>";
+  linksBox.innerHTML = "<p class=\"muted\">Detected links will be listed here.</p>";
+  guidanceBox.innerHTML = `
+    <div class="guidance-card"><strong>Use fake examples</strong><span>Keep real inbox content and private messages out of this demo.</span></div>
+    <div class="guidance-card"><strong>Read the evidence</strong><span>The score is only useful when the matched wording and links make sense.</span></div>
+    <div class="guidance-card"><strong>Compare examples</strong><span>Try both built-in samples to see what changes between normal and suspicious mail.</span></div>
+  `;
 }
 
 function escapeHtml(value) {
@@ -125,6 +182,10 @@ function download(filename, content) {
 }
 
 analyzeButton.addEventListener("click", () => {
+  if (!emailInput.value.trim()) {
+    statusBox.textContent = "Paste an email or load a sample first.";
+    return;
+  }
   lastReport = analyzeEmail(emailInput.value);
   render(lastReport);
 });
@@ -133,13 +194,24 @@ sampleButton.addEventListener("click", () => {
   lastReport = analyzeEmail(emailInput.value);
   render(lastReport);
 });
+cleanSampleButton.addEventListener("click", () => {
+  emailInput.value = cleanSampleEmail;
+  lastReport = analyzeEmail(emailInput.value);
+  render(lastReport);
+});
 clearButton.addEventListener("click", () => {
   emailInput.value = "";
   scoreBox.innerHTML = "";
   findingsBox.innerHTML = "";
   linksBox.innerHTML = "";
+  guidanceBox.innerHTML = "";
+  statusBox.textContent = "Cleared. Ready for another training example.";
   lastReport = null;
+  renderEmptyState();
 });
 exportButton.addEventListener("click", () => {
   if (lastReport) download("phishing-email-report.json", JSON.stringify(lastReport, null, 2));
+  else statusBox.textContent = "Run an analysis before exporting a report.";
 });
+
+renderEmptyState();
